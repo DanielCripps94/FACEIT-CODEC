@@ -1,9 +1,22 @@
 import React from 'react';
+import H6 from './H6';
+import Button from './Button';
+import './Tournament.css';
 
-export const Tournament = () => {
+export const Tournament = ({ tournament }) => {
+  const { name, game, participants, startDate, organizer } = tournament;
+
+  const editTournament = () => {};
+
   return (
-    <div>
-      <p> this is a tournament </p>
+    <div className="tournament-card">
+      <H6>{name}</H6>
+      <p>Organizer: {organizer}</p>
+      <p>Game: {game}</p>
+      <p>Participants: {`${participants.current}/ ${participants.max}`}</p>
+      <p>Start Date: {startDate}</p>
+      <Button className="btn edit-btn">Edit</Button>
+      <Button className="btn edit-btn">Delete</Button>
     </div>
   );
 };

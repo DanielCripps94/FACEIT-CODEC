@@ -1,0 +1,4 @@
+.tournaments-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
