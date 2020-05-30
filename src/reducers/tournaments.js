@@ -40,11 +40,25 @@ export default function tournaments(state = initialState, action) {
     };
   }
 
+  if (action.type === 'UPDATE_TOURNAMENT_FAILED') {
+    return {
+      ...state,
+      error: action.payload
+    };
+  }
+
   if (action.type === 'DELETE_TOURNAMENT') {
     let newData = state.data.filter(t => t.id !== action.payload.id);
     return {
       ...state,
       data: newData
+    };
+  }
+
+  if (action.type === 'DELETE_TOURNAMENT_FAILED') {
+    return {
+      ...state,
+      error: action.payload
     };
   }
 

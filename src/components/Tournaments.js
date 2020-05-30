@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAction } from '../actions/tournaments';
+import {
+  fetchAction,
+  updateAction,
+  deleteAction
+} from '../actions/tournaments';
 import { Loading } from './Loading';
 import { Tournament } from './Tournament';
 import './Tournaments.css';
-import { updateTournament, deleteTournament } from '../API';
 
 const Tournaments = () => {
   const dispatch = useDispatch();
@@ -28,18 +31,13 @@ const Tournaments = () => {
   const editTournament = (id, name) => {
     const newName = window.prompt('New Tournament Name', name);
     if (!newName) return;
-    dispatch({
-      type: 'UPDATE_TOURNAMENT_NAME',
-      payload: { id, name: newName }
-    });
-    updateTournament(id, { name: newName });
+    dispatch(updateAction(id, { name: newName }));
   };
 
   const removeTournament = id => {
     const res = window.confirm('Do you really want to delete this tournament?');
     if (!res) return;
-    dispatch({ type: 'DELETE_TOURNAMENT', payload: { id } });
-    deleteTournament(id);
+    dispatch(deleteAction(id));
   };
 
   return (
