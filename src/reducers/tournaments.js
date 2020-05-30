@@ -27,6 +27,27 @@ export default function tournaments(state = initialState, action) {
       error: action.payload
     };
   }
+
+  if (action.type === 'UPDATE_TOURNAMENT_NAME') {
+    let newData = state.data.map(t =>
+      t.id === action.payload.id
+        ? { ...t, name: action.payload.name }
+        : { ...t }
+    );
+    return {
+      ...state,
+      data: newData
+    };
+  }
+
+  if (action.type === 'DELETE_TOURNAMENT') {
+    let newData = state.data.filter(t => t.id !== action.payload.id);
+    return {
+      ...state,
+      data: newData
+    };
+  }
+
   return state;
 }
 
