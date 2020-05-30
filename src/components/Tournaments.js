@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchAction,
   updateAction,
-  deleteAction
+  deleteAction,
+  createAction
 } from '../actions/tournaments';
 import { Loading } from './Loading';
 import { Tournament } from './Tournament';
@@ -29,6 +30,12 @@ const Tournaments = () => {
     const res = window.confirm('Do you really want to delete this tournament?');
     if (!res) return;
     dispatch(deleteAction(id));
+  };
+
+  const createTournament = () => {
+    const name = window.prompt('Tournament Name');
+    if (!name) return;
+    dispatch(createAction({ name }));
   };
 
   const renderTournaments = () => {
@@ -59,7 +66,7 @@ const Tournaments = () => {
 
   return (
     <>
-      <Header setQuery={setQuery} />
+      <Header createTournament={createTournament} setQuery={setQuery} />
       <div className="tournaments-wrapper">
         {loading ? <Loading /> : renderTournaments()}
       </div>

@@ -1,4 +1,9 @@
-import { fetchTournaments, updateTournament, deleteTournament } from '../API';
+import {
+  fetchTournaments,
+  updateTournament,
+  deleteTournament,
+  createTournament
+} from '../API';
 
 export const fetchAction = () => async dispatch => {
   dispatch({ type: 'FETCH_TOURNAMENTS_REQUEST' });
@@ -7,6 +12,15 @@ export const fetchAction = () => async dispatch => {
     dispatch({ type: 'FETCH_TOURNAMENTS_SUCCESS', payload: data });
   } catch (err) {
     dispatch({ type: 'FETCH_TOURNAMENTS_FAILED', payload: err });
+  }
+};
+
+export const createAction = tournament => async dispatch => {
+  try {
+    const data = await createTournament(tournament);
+    dispatch({ type: 'CREATE_TOURNAMENT_SUCCESS', payload: data });
+  } catch (err) {
+    dispatch({ type: 'CREATE_TOURNAMENT_FAILED', payload: err });
   }
 };
 

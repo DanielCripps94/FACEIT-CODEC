@@ -62,6 +62,20 @@ export default function tournaments(state = initialState, action) {
     };
   }
 
+  if (action.type === 'CREATE_TOURNAMENT_SUCCESS') {
+    state.data.unshift(action.payload);
+    return {
+      ...state
+    };
+  }
+
+  if (action.type === 'CREATE_TOURNAMENT_FAILED') {
+    return {
+      ...state,
+      error: action.payload
+    };
+  }
+
   return state;
 }
 

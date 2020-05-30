@@ -3,14 +3,14 @@ import Input from './Input';
 import Button from './Button';
 import './Header.css';
 
-const Header = ({ setQuery }) => {
+const Header = ({ setQuery, createTournament }) => {
   return (
     <div className="header">
       <Input
         onChange={e => setQuery(e.target.value)}
         placeholder="Search Tournament..."
       />
-      <Button>Create Tournament</Button>
+      <Button onClick={createTournament}>Create Tournament</Button>
     </div>
   );
 };
