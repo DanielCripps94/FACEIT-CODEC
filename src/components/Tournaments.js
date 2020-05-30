@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchAction,
@@ -8,25 +8,16 @@ import {
 import { Loading } from './Loading';
 import { Tournament } from './Tournament';
 import './Tournaments.css';
+import Header from './Header';
 
 const Tournaments = () => {
   const dispatch = useDispatch();
+  const [query, setQuery] = useState('');
   const { loading, data, error } = useSelector(state => state.tournaments);
 
   useEffect(() => {
     dispatch(fetchAction());
   }, [dispatch]);
-
-  const renderTournaments = () => {
-    return data.map(tournament => (
-      <Tournament
-        key={tournament.id}
-        tournament={tournament}
-        editTournament={editTournament}
-        deleteTournament={removeTournament}
-      />
-    ));
-  };
 
   const editTournament = (id, name) => {
     const newName = window.prompt('New Tournament Name', name);
@@ -40,10 +31,39 @@ const Tournaments = () => {
     dispatch(deleteAction(id));
   };
 
+  const renderTournaments = () => {
+    if (query) {
+      return data
+        .filter(tournament =>
+          tournament.name.toLowerCase().includes(query.toLowerCase())
+        )
+        .map(tournament => (
+          <Tournament
+            key={tournament.id}
+            tournament={tournament}
+            editTournament={editTournament}
+            deleteTournament={removeTournament}
+          />
+        ));
+    } else {
+      return data.map(tournament => (
+        <Tournament
+          key={tournament.id}
+          tournament={tournament}
+          editTournament={editTournament}
+          deleteTournament={removeTournament}
+        />
+      ));
+    }
+  };
+
   return (
-    <div className="tournaments-wrapper">
-      {loading ? <Loading /> : renderTournaments()}
-    </div>
+    <>
+      <Header setQuery={setQuery} />
+      <div className="tournaments-wrapper">
+        {loading ? <Loading /> : renderTournaments()}
+      </div>
+    </>
   );
 };
 
