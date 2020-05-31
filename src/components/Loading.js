@@ -1,3 +1,3 @@
 import React from 'react';
-
-export const Loading = () => <h1>Loading tournaments...</h1>;
+import './Loading.css';
+export const Loading = () => <p className="loading">Loading tournaments...</p>;
