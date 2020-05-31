@@ -4,3 +4,7 @@ export const parseDate = string => {
   let time = date.toTimeString().split(' ')[0];
   return `${dateString}, ${time}`;
 };
+
+export const isEmpty = obj => {
+  return Object.keys(obj).length === 0;
+};

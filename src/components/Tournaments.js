@@ -10,6 +10,7 @@ import { Loading } from './Loading';
 import { Tournament } from './Tournament';
 import './Tournaments.css';
 import Header from './Header';
+import Error from './Error';
 
 const Tournaments = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,9 @@ const Tournaments = () => {
   };
 
   const renderTournaments = () => {
-    if (query) {
+    if (loading) {
+      return <Loading />;
+    } else if (data && query) {
       return data
         .filter(tournament =>
           tournament.name.toLowerCase().includes(query.toLowerCase())
@@ -52,7 +55,9 @@ const Tournaments = () => {
             deleteTournament={removeTournament}
           />
         ));
-    } else {
+    } else if (error) {
+      return <Error dispatch={dispatch} fetchAction={fetchAction} />;
+    } else if (data && data.length > 0) {
       return data.map(tournament => (
         <Tournament
           key={tournament.id}
@@ -66,10 +71,13 @@ const Tournaments = () => {
 
   return (
     <>
-      <Header createTournament={createTournament} setQuery={setQuery} />
-      <div className="tournaments-wrapper">
-        {loading ? <Loading /> : renderTournaments()}
-      </div>
+      <Header
+        error={error}
+        loading={loading}
+        createTournament={createTournament}
+        setQuery={setQuery}
+      />
+      <div className="tournaments-wrapper">{renderTournaments()}</div>
     </>
   );
 };
