@@ -6,12 +6,12 @@ import {
   deleteAction,
   createAction,
   searchAction
-} from '../actions/tournaments';
-import { Loading } from './Loading';
-import { Tournament } from './Tournament';
+} from '../../actions/tournaments';
+import { Loading } from '../Loading/Loading';
+import { Tournament } from '../Tournament/Tournament';
 import './Tournaments.css';
-import Header from './Header';
-import Error from './Error';
+import Header from '../Header/Header';
+import Error from '../Error/Error';
 
 const Tournaments = () => {
   const dispatch = useDispatch();

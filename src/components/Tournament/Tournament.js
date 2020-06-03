@@ -1,8 +1,8 @@
 import React from 'react';
-import H6 from './H6';
-import Button from './Button';
+import H6 from '../H6';
+import Button from '../Button';
 import './Tournament.css';
-import { parseDate } from '../helpers';
+import { parseDate } from '../../helpers';
 
 export const Tournament = ({
   tournament,
@@ -14,7 +14,7 @@ export const Tournament = ({
   return (
     <div className="tournament-card">
       <H6>{name}</H6>
-      <p>Organizer: {organizer}</p>
+      <p className="organizer-header">Organizer: {organizer}</p>
       <p>Game: {game}</p>
       <p>Participants: {`${participants.current}/ ${participants.max}`}</p>
       <p>Start Date: {parseDate(startDate)}</p>
