@@ -33,6 +33,7 @@ const destroy = (url, id) => {
     method: 'DELETE'
   });
 };
+
 // functions
 
 export const fetchTournaments = () => get(API_TOURNAMENTS_URL);

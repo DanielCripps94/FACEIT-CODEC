@@ -83,6 +83,33 @@ export default function tournaments(state = initialState, action) {
     };
   }
 
+  if (action.type === 'SEARCH_TOURNAMENTS_REQUEST') {
+    return {
+      ...state,
+      loading: true
+    };
+  }
+
+  if (action.type === 'SEARCH_TOURNAMENTS_SUCCESS') {
+    const { data, query } = action.payload;
+    const filteredData = data.filter(t =>
+      t.name.toLowerCase().includes(query.toLowerCase())
+    );
+    return {
+      ...state,
+      loading: false,
+      data: filteredData
+    };
+  }
+
+  if (action.type === 'SEARCH_TOURNAMENTS_FAILED') {
+    return {
+      ...state,
+      error: action.payload,
+      loading: false
+    };
+  }
+
   return state;
 }
 

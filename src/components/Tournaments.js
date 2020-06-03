@@ -4,7 +4,8 @@ import {
   fetchAction,
   updateAction,
   deleteAction,
-  createAction
+  createAction,
+  searchAction
 } from '../actions/tournaments';
 import { Loading } from './Loading';
 import { Tournament } from './Tournament';
@@ -34,29 +35,23 @@ const Tournaments = () => {
   };
 
   const createTournament = () => {
-    const name = window.prompt('Tournament Name');
+    const name = window.prompt('Tournament Name:');
     if (!name) return;
     dispatch(createAction({ name }));
+  };
+
+  const searchTournaments = e => {
+    e.preventDefault();
+    dispatch(searchAction(query));
   };
 
   const renderTournaments = () => {
     if (loading) {
       return <Loading />;
-    } else if (data && query) {
-      return data
-        .filter(tournament =>
-          tournament.name.toLowerCase().includes(query.toLowerCase())
-        )
-        .map(tournament => (
-          <Tournament
-            key={tournament.id}
-            tournament={tournament}
-            editTournament={editTournament}
-            deleteTournament={removeTournament}
-          />
-        ));
     } else if (error) {
       return <Error dispatch={dispatch} fetchAction={fetchAction} />;
+    } else if (data.length === 0) {
+      return <p className="no-result">No results found...</p>;
     } else if (data && data.length > 0) {
       return data.map(tournament => (
         <Tournament
@@ -76,6 +71,8 @@ const Tournaments = () => {
         loading={loading}
         createTournament={createTournament}
         setQuery={setQuery}
+        dispatch={dispatch}
+        searchTournaments={searchTournaments}
       />
       <div className="tournaments-wrapper">{renderTournaments()}</div>
     </>

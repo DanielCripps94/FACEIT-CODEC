@@ -43,3 +43,14 @@ export const deleteAction = id => async dispatch => {
     dispatch({ type: 'DELETE_TOURNAMENT_FAILED', payload: err.message });
   }
 };
+
+export const searchAction = query => async dispatch => {
+  dispatch({ type: 'SEARCH_TOURNAMENTS_REQUEST' });
+  try {
+    const data = await fetchTournaments();
+    if (isEmpty(data) && !query) throw Error('No results found.');
+    dispatch({ type: 'SEARCH_TOURNAMENTS_SUCCESS', payload: { query, data } });
+  } catch (err) {
+    dispatch({ type: 'SEARCH_TOURNAMENTS_FAILED', payload: err.message });
+  }
+};
