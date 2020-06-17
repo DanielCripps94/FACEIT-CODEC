@@ -1,0 +1,11 @@
+.tournaments-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  line-height: 3px;
+}
+
+.no-result {
+  text-align: center;
+  margin: 0 auto;
+}
